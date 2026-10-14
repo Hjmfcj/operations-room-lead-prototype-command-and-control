@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>منصة القيادة والسيطرة — شرطة ولاية الخرطوم</title>
+<style>
+:root{--navy:#0f2a3f;--navy2:#16364f;--teal:#1d6f7a;--gold:#c0923f;--bg:#f4f2ec;--card:#fff;--ink:#1b2a36;--mut:#6b7885;--line:#e4e0d6;--red:#b8392e;--amber:#c98a1b;--green:#2f7d4f;--blue:#2b6cb0;
+--font:"Segoe UI",Tahoma,"Noto Sans Arabic","Noto Naskh Arabic",Arial,sans-serif}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);font-size:14px;line-height:1.55}
+button,select,input,textarea{font-family:inherit;font-size:13px;color:var(--ink)}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.side{background:var(--navy);color:#cfdbe5;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+.brand{padding:20px 18px 16px;border-bottom:1px solid #ffffff18}
+.brand b{display:block;color:#fff;font-size:17px}
+.brand span{font-size:12px;color:#8fa5b6}
+.nav{padding:12px 10px;display:flex;flex-direction:column;gap:3px;flex:1}
+.nav .lbl{font-size:11px;color:#7f93a4;padding:8px 10px 4px}
+.nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;color:#cfdbe5;text-decoration:none;cursor:pointer;border:0;background:none;text-align:right;width:100%}
+.nav a:hover{background:#ffffff10}
+.nav a.on{background:#ffffff18;color:#fff;box-shadow:inset -3px 0 0 var(--gold)}
+.nav .ic{width:18px;text-align:center;opacity:.9}
+.badge{margin-right:auto;background:var(--red);color:#fff;border-radius:99px;font-size:11px;padding:1px 8px}
+.user{padding:14px 16px;border-top:1px solid #ffffff18;display:flex;gap:10px;align-items:center}
+.av{width:34px;height:34px;border-radius:50%;background:var(--navy2);display:grid;place-items:center;color:#fff;font-weight:600}
+.user small{display:block;color:#8fa5b6;font-size:11px}
+.main{min-width:0}
+.top{display:flex;gap:12px;align-items:center;padding:14px 26px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.top h1{font-size:19px;margin:0;flex:1}
+.top h1 small{display:block;font-size:12px;color:var(--mut);font-weight:400}
+.search{display:flex;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:0 10px;width:280px}
+.search input{border:0;background:none;outline:none;padding:9px 6px;width:100%}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 15px;cursor:pointer;font-weight:600}
+.btn:hover{background:#faf8f3}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff}
+.btn.gold:hover{background:#ad8236}
+.btn.navy{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.sm{padding:5px 11px;font-size:12px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.page{padding:22px 26px 40px}
+.view{display:none}.view.on{display:block}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer}
+.kpi:hover{border-color:#cfc8b8}
+.kpi small{color:var(--mut)}
+.kpi b{display:block;font-size:28px;line-height:1.2;margin-top:2px}
+.kpi i{font-style:normal;font-size:12px;color:var(--mut)}
+.kpi.crit b{color:var(--red)}
+.note{background:#fbf5e6;border:1px solid #ecdcb4;border-radius:10px;padding:10px 14px;margin-bottom:16px}
+.grid3{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.card h3{margin:0 0 12px;font-size:15px;display:flex;align-items:center;gap:8px}
+.card h3 small{color:var(--mut);font-weight:400;font-size:12px}
+.bars .r{display:grid;grid-template-columns:130px 1fr 34px;gap:10px;align-items:center;margin:9px 0}
+.bars .t{height:9px;background:#eee9dd;border-radius:6px;overflow:hidden}
+.bars .t i{display:block;height:100%;background:var(--teal);border-radius:6px}
+.bars .n{font-weight:700;text-align:left}
+.list .it{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.list .it:last-child{border:0}
+.list .it:hover b{text-decoration:underline}
+.list .it small{display:block;color:var(--mut)}
+.tag{display:inline-block;border-radius:99px;padding:1px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.p-حرج{background:#fbe3e0;color:var(--red)}.p-عالي{background:#fbefd5;color:#9a6a0c}.p-متوسط{background:#e3eef8;color:var(--blue)}.p-منخفض{background:#e5f2ea;color:var(--green)}
+.s-جديد{background:#e8ecf0;color:#44525e}.s-معيّن{background:#e3eef8;color:var(--blue)}.s-قيد-المعالجة{background:#dff0f1;color:var(--teal)}.s-مُصعَّد{background:#fbe3e0;color:var(--red)}.s-مغلق{background:#e5f2ea;color:var(--green)}
+.mapwrap{display:grid;grid-template-columns:1fr 280px;gap:14px}
+svg.map{width:100%;height:auto;background:#fbfaf6;border-radius:10px}
+svg.map polygon{stroke:#fff;stroke-width:3;cursor:pointer;transition:filter .15s}
+svg.map polygon:hover{filter:brightness(.93)}
+svg.map text{font-family:var(--font);pointer-events:none}
+.legend{display:flex;gap:4px;align-items:center;font-size:12px;color:var(--mut);margin-top:8px}
+.legend i{width:26px;height:10px;border-radius:3px;display:inline-block}
+.tip{position:fixed;background:var(--navy);color:#fff;padding:6px 10px;border-radius:8px;font-size:12px;pointer-events:none;display:none;z-index:50}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.filters select,.filters input{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 10px;min-width:130px}
+table{width:100%;border-collapse:collapse}
+th{font-size:12px;color:var(--mut);font-weight:600;text-align:right;padding:9px 10px;border-bottom:1px solid var(--line);background:#faf8f3}
+td{padding:11px 10px;border-bottom:1px solid var(--line)}
+tbody tr{cursor:pointer}tbody tr:hover{background:#faf8f3}
+.pager{display:flex;gap:6px;align-items:center;margin-top:12px;color:var(--mut)}
+.pager button{border:1px solid var(--line);background:#fff;border-radius:7px;padding:4px 10px;cursor:pointer}
+.pager button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.det{display:grid;grid-template-columns:1fr 340px;gap:14px}
+.stepper{display:flex;gap:0;margin:6px 0 16px}
+.stepper .st{flex:1;text-align:center;position:relative;color:var(--mut);font-size:12px}
+.stepper .st:before{content:"";position:absolute;top:13px;right:-50%;left:50%;height:3px;background:#e3dfd3}
+.stepper .st:first-child:before{display:none}
+.stepper .st i{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#e3dfd3;margin:0 auto 4px;position:relative;font-style:normal;font-weight:700}
+.stepper .st.done i,.stepper .st.cur i{background:var(--teal);color:#fff}
+.stepper .st.done:before,.stepper .st.cur:before{background:var(--teal)}
+.stepper .st.cur{color:var(--ink);font-weight:700}
+.stepper .st.esc i{background:var(--red)}
+.kv{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+.kv small{color:var(--mut);display:block}
+.tl .e{display:grid;grid-template-columns:54px 14px 1fr;gap:8px;padding:6px 0}
+.tl .e time{color:var(--mut);font-size:12px;padding-top:2px}
+.tl .e span{width:12px;height:12px;border-radius:50%;background:var(--teal);margin-top:5px;position:relative}
+.tl .e span:after{content:"";position:absolute;top:12px;right:5px;width:2px;height:28px;background:#d9d4c6}
+.tl .e:last-child span:after{display:none}
+.tl .e small{display:block;color:var(--mut)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:980px}
+.field{margin-bottom:12px}
+.field label{display:block;font-weight:600;margin-bottom:4px;font-size:13px}
+.field label em{color:var(--red);font-style:normal}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 10px;background:#fff}
+.field textarea{min-height:90px;resize:vertical}
+.field.err input,.field.err select,.field.err textarea{border-color:var(--red)}
+.field .m{color:var(--red);font-size:12px;display:none}.field.err .m{display:block}
+.sum{background:#faf8f3;border-radius:10px;padding:10px 14px}
+.sum div{display:flex;justify-content:space-between;padding:5px 0}
+.drop{border:1.5px dashed #cfc8b8;border-radius:10px;padding:14px;display:flex;gap:12px;align-items:center;cursor:pointer;background:#fdfcf9}
+.files{margin-top:8px;font-size:12px;color:var(--mut)}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.opk{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--line)}
+.opk:last-child{border:0}.opk b{font-size:24px;min-width:42px}
+.opk div{flex:1}.opk small{display:block;color:var(--mut)}
+.feed .e{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.feed time{color:var(--mut);font-size:12px;min-width:44px}
+.dot{width:10px;height:10px;border-radius:50%;margin-top:6px;border:2px solid var(--teal)}
+.dot.r{border-color:var(--red)}.dot.g{border-color:var(--green)}.dot.a{border-color:var(--amber)}
+.live{display:inline-block;background:#e5f2ea;color:var(--green);border-radius:99px;font-size:11px;padding:1px 9px;margin-right:6px}
+.tabs{display:flex;gap:6px;margin-bottom:14px}
+.tabs button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 18px;cursor:pointer;font-weight:600}
+.tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.rep{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.col{display:flex;flex-direction:column;gap:3px;height:140px;justify-content:flex-end}
+.cols{display:flex;gap:10px;align-items:flex-end;height:170px;margin-top:8px}
+.cols .c{flex:1;text-align:center;font-size:11px;color:var(--mut)}
+.cols .c i{display:block;background:var(--teal);border-radius:5px 5px 0 0;margin:2px auto;width:70%}
+.cols .c b{display:block;color:var(--ink);font-size:12px}
+.toast{position:fixed;bottom:22px;left:22px;background:var(--navy);color:#fff;padding:11px 18px;border-radius:10px;display:none;z-index:60}
+.acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}
+.acts select{border:1px solid var(--line);border-radius:9px;padding:7px 9px;background:#fff}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.grid3,.mapwrap,.det,.ops,.rep,.form{grid-template-columns:1fr}}
+@media(max-width:820px){.app{grid-template-columns:1fr}.side{position:static;height:auto}.nav{flex-direction:row;flex-wrap:wrap}.search{width:100%}.top{flex-wrap:wrap}}
+
+.camlayout{display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:start}
+.viewer{position:relative;background:#0b1620;border-radius:12px;overflow:hidden;aspect-ratio:16/9}
+.viewer canvas{width:100%;height:100%;display:block}
+.vflash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+.vbar{display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.camgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.camtile{position:relative;border:2px solid transparent;border-radius:10px;overflow:hidden;cursor:pointer;background:#0b1620}
+.camtile:hover{border-color:#cfc8b8}.camtile.on{border-color:var(--gold)}
+.camtile canvas{display:block;width:100%;height:auto}
+.camtile span{position:absolute;bottom:0;right:0;left:0;background:linear-gradient(transparent,#000b);color:#fff;font-size:11.5px;padding:16px 8px 5px}
+.snap{position:relative;border-radius:9px;overflow:hidden;border:1px solid var(--line);margin-bottom:10px;background:#0b1620}
+.snap img{width:100%;height:auto;display:block}
+.snap .sc{display:flex;align-items:center;justify-content:space-between;padding:5px 9px;background:#fff;font-size:12px;color:var(--mut)}
+.snap .x{border:0;background:none;cursor:pointer;font-size:18px;line-height:1;color:var(--red)}
+.emptytray{color:var(--mut);padding:18px 4px;font-size:13px}
+.modal{position:fixed;inset:0;background:#0f2a3fcc;display:none;align-items:center;justify-content:center;z-index:70;padding:20px}
+.modal.on{display:flex}
+.mbox{background:#fff;border-radius:14px;max-width:1000px;width:100%;max-height:92vh;overflow:auto;padding:18px}
+.cmgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.snapg{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.snapg figure,.snapg2 figure{margin:0}
+.snapg img,.snapg2 img,.snapg2 canvas{width:100%;height:auto;display:block;border-radius:8px;background:#0b1620}
+.snapg2{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.snapg2 figure{cursor:zoom-in}
+figcaption{font-size:12px;color:var(--mut);margin-top:4px}
+.cb{display:inline-block;background:#e3eef8;color:var(--blue);border-radius:99px;font-size:11px;padding:0 8px;margin-right:6px;font-weight:600;white-space:nowrap}
+.files .th{display:inline-flex;align-items:center;gap:8px;margin:0 0 8px 8px;border:1px solid var(--line);border-radius:9px;padding:4px 8px;background:#fff}
+.files .th img{width:64px;height:40px;object-fit:cover;border-radius:5px}
+.files .th button{border:0;background:none;color:var(--red);cursor:pointer;font-size:16px}
+@media(max-width:1100px){.camlayout,.cmgrid{grid-template-columns:1fr}.camgrid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+  <div class="brand"><b>منصة القيادة والسيطرة</b><span>شرطة ولاية الخرطوم</span></div>
+  <nav class="nav" id="nav">
+    <div class="lbl">التشغيل</div>
+    <a data-v="dash"><span class="ic">▦</span>لوحة القيادة</a>
+    <a data-v="map"><span class="ic">◍</span>الخريطة الحرارية</a>
+    <a data-v="reg"><span class="ic">☰</span>سجل البلاغات<span class="badge" id="nb">0</span></a>
+    <a data-v="cam"><span class="ic">▣</span>الكاميرات</a>
+    <a data-v="new"><span class="ic">＋</span>تسجيل بلاغ</a>
+    <a data-v="ops"><span class="ic">◎</span>غرفة العمليات</a>
+    <a data-v="rep"><span class="ic">▤</span>التقارير</a>
+  </nav>
+  <div class="user"><div class="av">م</div><div>مسؤول غرفة العمليات<small id="today"></small></div></div>
+</aside>
+<div class="main">
+  <header class="top">
+    <h1 id="ttl">لوحة القيادة<small id="sub"></small></h1>
+    <div class="search"><span>⌕</span><input id="q" placeholder="ابحث برقم البلاغ أو العنوان أو المحلية"></div>
+    <button class="btn gold" data-v="new">＋ تسجيل بلاغ</button>
+  </header>
+  <div class="page">
+
+  <section class="view" id="v-dash">
+    <div class="kpis" id="kpis"></div>
+    <div class="note" id="insight"></div>
+    <div class="grid3">
+      <div class="card"><h3>أهم القضايا الحرجة <small>المفتوحة حاليًا</small></h3><div class="list" id="critlist"></div><button class="btn sm" style="margin-top:10px" id="allcrit">عرض جميع القضايا الحرجة</button></div>
+      <div class="card"><h3>خريطة ولاية الخرطوم <small>كثافة القضايا المفتوحة</small></h3><div id="minimap"></div></div>
+      <div class="card"><h3>القضايا حسب النوع <small>آخر 30 يومًا</small></h3><div class="bars" id="bytype"></div></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-map">
+    <div class="mapwrap">
+      <div class="card"><h3>ولاية الخرطوم — التوزيع الجغرافي <small>كثافة القضايا المفتوحة حسب المحلية. اضغط على المحلية لعرض قضاياها.</small></h3><div id="bigmap"></div><div class="legend" id="legend"></div></div>
+      <div class="card"><h3>المحليات الأعلى كثافة</h3><div class="bars" id="rank"></div><div class="note" id="mapnote" style="margin:14px 0 0"></div></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-reg">
+    <div class="filters" id="filters"></div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="display:flex;align-items:center;padding:12px 14px;gap:10px"><b id="regcount"></b><span style="flex:1"></span><button class="btn sm" id="exp">⭳ تصدير CSV</button></div>
+      <table><thead><tr><th>الرقم</th><th>العنوان</th><th>المحلية</th><th>التصنيف</th><th>الأولوية</th><th>المركز المسؤول</th><th>الحالة</th><th>منذ</th></tr></thead><tbody id="rows"></tbody></table>
+    </div>
+    <div class="pager" id="pager"></div>
+  </section>
+
+  <section class="view" id="v-det"></section>
+
+  <section class="view" id="v-cam">
+    <div class="camlayout">
+      <div>
+        <div class="card"><h3><span id="camtitle"></span><span class="live">● مباشر</span><small id="camsub"></small></h3>
+          <div class="viewer"><canvas id="camMain" width="960" height="540"></canvas><div class="vflash" id="vflash"></div></div>
+          <div class="vbar"><button class="btn gold" id="camSnap" type="button">◉ التقاط لقطة</button><span style="flex:1"></span><span style="color:var(--mut);font-size:12px">اختر كاميرا من الشبكة أدناه ثم التقط اللقطة عند رصد الواقعة</span></div>
+        </div>
+        <div class="camgrid" id="camgrid"></div>
+      </div>
+      <div class="card"><h3>اللقطات الملتقطة <small id="traycount"></small></h3><div id="tray"></div><button class="btn navy" id="camMake" type="button" style="width:100%;margin-top:6px">＋ تسجيل بلاغ من اللقطات</button></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-new">
+    <form id="nf" class="form" novalidate>
+      <div>
+        <div class="card"><h3>بيانات أساسية</h3>
+          <div class="field" id="f-title"><label>عنوان البلاغ <em>*</em></label><input id="n-title" placeholder="مثال: سرقة مسلحة — قرب السوق المركزي"><span class="m">العنوان مطلوب</span></div>
+          <div class="field" id="f-group"><label>التصنيف الجنائي <em>*</em></label><select id="n-group"></select><span class="m">اختر التصنيف</span></div>
+          <div class="field" id="f-type"><label>نوع الواقعة <em>*</em></label><select id="n-type"></select><span class="m">اختر نوع الواقعة</span></div>
+          <div class="field" id="f-loc"><label>المحلية <em>*</em></label><select id="n-loc"></select><span class="m">اختر المحلية</span></div>
+          <div class="field"><label>الأولوية <em>*</em></label><select id="n-pri"></select></div>
+          <div class="field" id="f-where"><label>الموقع التفصيلي <em>*</em></label><input id="n-where" placeholder="العنوان أو أقرب علامة مميزة"><span class="m">الموقع مطلوب</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="card"><h3>الوصف والمصدر</h3>
+          <div class="field" id="f-desc"><label>وصف البلاغ <em>*</em></label><textarea id="n-desc" placeholder="وصف موجز لما حدث، متى بدأ، ومن أبلغ عنه..."></textarea><span class="m">الوصف مطلوب</span></div>
+          <div class="field"><label>مصدر البلاغ</label><select id="n-src"><option>مركز الاتصال</option><option>مواطن</option><option>كاميرا مراقبة</option></select></div>
+          <div class="field" id="f-cam" style="display:none"><label>الكاميرا المصدر</label><select id="n-cam"></select></div>
+          <div class="field"><label>المرفقات</label>
+            <label class="drop" for="n-files"><span style="font-size:22px">⎘</span><span><b>إرفاق صور أو مقاطع فيديو</b><br><small style="color:var(--mut)">JPG, PNG, MP4 — حتى 20MB لكل ملف — أو الصق لقطة شاشة (Ctrl+V)</small></span></label>
+            <input type="file" id="n-files" multiple accept=".jpg,.jpeg,.png,.mp4" style="display:none"><div class="files" id="filesl"></div></div>
+        </div>
+        <div class="card sum" style="margin-top:14px"><h3>ملخص قبل الإرسال</h3>
+          <div><span>المركز المقترح</span><b id="s-center">يُحدَّد تلقائيًا حسب الموقع</b></div>
+          <div><span>الحالة عند التسجيل</span><b>جديد</b></div>
+        </div>
+        <div style="display:flex;gap:10px;margin-top:14px"><button type="submit" class="btn gold">تسجيل القضية ◂</button><button type="button" class="btn" id="ncancel">إلغاء</button></div>
+      </div>
+    </form>
+  </section>
+
+  <section class="view" id="v-ops">
+    <div class="ops">
+      <div class="card"><h3>المتابعة اللحظية</h3><div id="opk"></div>
+        <h3 style="margin-top:18px">بانتظار التعيين <small>قضايا جديدة لم تُسند بعد</small></h3><div id="waiting"></div></div>
+      <div class="card"><h3>سجل الأحداث اللحظي <span class="live">● مباشر</span></h3><div class="feed" id="feed"></div></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-rep">
+    <div class="tabs" id="rtabs"><button data-r="d" class="on">التقرير اليومي</button><button data-r="w">التقرير الأسبوعي</button><button data-r="m">التقرير الشهري</button></div>
+    <div id="repbody"></div>
+  </section>
+
+  </div>
+</div>
+</div>
+<div class="modal" id="cammodal"><div class="mbox">
+  <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><h3 style="margin:0;font-size:17px">تسجيل بلاغ من لقطات الكاميرا</h3><span style="flex:1"></span><button class="btn sm" id="cm-x" type="button">إغلاق</button></div>
+  <form id="cmf" novalidate class="cmgrid">
+    <div>
+      <div class="snapg" id="cm-snaps"></div>
+      <div class="card sum" style="margin-top:14px;padding:10px 14px"><div><span>الكاميرا</span><b id="cm-cam"></b></div><div><span>وقت الالتقاط</span><b id="cm-time"></b></div><div><span>المركز المقترح</span><b id="cm-center"></b></div><div><span>الحالة عند التسجيل</span><b>جديد</b></div></div>
+    </div>
+    <div>
+      <div class="field" id="cf-title"><label>عنوان البلاغ <em>*</em></label><input id="cm-title"><span class="m">العنوان مطلوب</span></div>
+      <div class="field" id="cf-group"><label>التصنيف الجنائي <em>*</em></label><select id="cm-group"></select><span class="m">اختر التصنيف</span></div>
+      <div class="field" id="cf-type"><label>نوع الواقعة <em>*</em></label><select id="cm-type"></select><span class="m">اختر نوع الواقعة</span></div>
+      <div class="field" id="cf-loc"><label>المحلية <em>*</em></label><select id="cm-loc"></select><span class="m">اختر المحلية</span></div>
+      <div class="field"><label>الأولوية <em>*</em></label><select id="cm-pri"></select></div>
+      <div class="field" id="cf-where"><label>الموقع التفصيلي <em>*</em></label><input id="cm-where"><span class="m">الموقع مطلوب</span></div>
+      <div class="field" id="cf-desc"><label>وصف البلاغ <em>*</em></label><textarea id="cm-desc" placeholder="وصف موجز لما ظهر في اللقطة..."></textarea><span class="m">الوصف مطلوب</span></div>
+      <div style="display:flex;gap:10px"><button type="submit" class="btn gold">تسجيل القضية ◂</button><button type="button" class="btn" id="cm-x2">إلغاء</button></div>
+    </div>
+  </form></div></div>
+<div class="modal" id="lbox"><div class="mbox" style="max-width:1040px;background:#0b1620;padding:10px"><div id="lbbody"></div><div id="lbcap" style="color:#cfdbe5;padding:8px 4px"></div></div></div>
+<div class="tip" id="tip"></div>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+"use strict";
+var LOCS=["الخرطوم","أم درمان","الخرطوم بحري","كرري","شرق النيل","أم بدة","جبل أولياء"];
+var CLASSES={"جرائم ضد الممتلكات":["سرقة","سطو","إتلاف ممتلكات","نشل"],"جرائم ضد الأشخاص":["اعتداء","عنف أسري","تهديد ومضايقة"],"حوادث الطرق":["حوادث مرور","تجاوزات مرورية","قيادة متهورة"],"الجرائم الإلكترونية":["احتيال إلكتروني","ابتزاز","اختراق حسابات"],"الإخلال بالنظام العام":["تجمهر","شغب","مخالفات عامة"]};
+var GROUPS=Object.keys(CLASSES);
+var PRI=["حرج","عالي","متوسط","منخفض"];
+var ST=["جديد","معيّن","قيد المعالجة","مُصعَّد","مغلق"];
+var LEVELS=["مدير الغرفة","مدير الإدارة","المدير العام"];
+var OFFICERS=["الملازم أول سامي إبراهيم","النقيب خالد عثمان","الرائد ياسر محمد","الملازم نبيل حسن","النقيب عماد الدين علي","الرائد هاني أحمد","المقدم مصطفى عمر"];
+var PLACES=["تقاطع الشارع الرئيسي مع شارع المدارس","قرب السوق المركزي","أمام المحطة الرئيسية","شارع المستشفى","بجوار الميدان العام","قرب الجسر","حي سكني — المربع 12","الطريق الدائري","أمام المجمع التجاري","شارع الجامعة"];
+var NOW=new Date();
+var DAY=86400000,HR=3600000,MIN=60000;
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+var R=rng(20261013);
+function pick(a){return a[Math.floor(R()*a.length)]}
+function wpick(items,w){var t=w.reduce(function(a,b){return a+b},0),x=R()*t;for(var i=0;i<items.length;i++){x-=w[i];if(x<=0)return items[i]}return items[items.length-1]}
+function pad(n){return n<10?"0"+n:""+n}
+function dstr(d){return d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()}
+function tstr(d){return pad(d.getHours())+":"+pad(d.getMinutes())}
+function sameDay(a,b){return a.getFullYear()==b.getFullYear()&&a.getMonth()==b.getMonth()&&a.getDate()==b.getDate()}
+function ago(d){var m=Math.max(1,Math.round((NOW-d)/MIN));if(m<60)return m+" د";var h=Math.round(m/60);if(h<24)return h+" س";return Math.round(h/24)+" يوم"}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function cls(p,s){return p+"-"+String(s).replace(/ /g,"-")}
+function centerFor(group,loc){if(group=="الجرائم الإلكترونية")return"وحدة الجرائم الإلكترونية";if(group=="حوادث الطرق")return"إدارة المرور — "+loc;return"مركز شرطة "+loc}
+var LW=[23,18,15,11,10,8,6];
+/* ---- cameras & scene renderer ---- */
+var CAMS=[
+ {id:1,loc:"الخرطوم",place:"تقاطع الشارع الرئيسي مع شارع المدارس",kind:"junction",ev:null},
+ {id:2,loc:"أم درمان",place:"قرب السوق المركزي",kind:"market",ev:"crowd"},
+ {id:3,loc:"الخرطوم بحري",place:"أمام المحطة الرئيسية",kind:"station",ev:null},
+ {id:4,loc:"كرري",place:"قرب الجسر",kind:"bridge",ev:null},
+ {id:5,loc:"شرق النيل",place:"الطريق الدائري",kind:"junction",ev:"crash"},
+ {id:6,loc:"أم بدة",place:"شارع المستشفى",kind:"street",ev:null},
+ {id:7,loc:"جبل أولياء",place:"بجوار الميدان العام",kind:"market",ev:null},
+ {id:8,loc:"الخرطوم",place:"أمام المجمع التجاري",kind:"street",ev:null}];
+function camById(id){for(var i=0;i<CAMS.length;i++)if(CAMS[i].id==id)return CAMS[i];return null}
+function camForLoc(l){for(var i=0;i<CAMS.length;i++)if(CAMS[i].loc==l)return CAMS[i];return CAMS[0]}
+function camName(id){return"كاميرا "+(id<10?"0"+id:id)}
+function sr(s){s=(s|0)||1;return function(){s^=s<<13;s^=s>>>17;s^=s<<5;return((s>>>0)%100000)/100000}}
+var VCOL=["#7b8a96","#8b3a34","#c8c8c0","#3f5f78","#9a8a52","#566069","#a9b2b8"];
+function stampStr(d){function p(n){return n<10?"0"+n:""+n}return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"  "+p(d.getHours())+":"+p(d.getMinutes())+":"+p(d.getSeconds())}
+function vehicle(ctx,x,y,len,h,col,dir,k,hl){
+  ctx.fillStyle="rgba(0,0,0,.35)";ctx.fillRect(x-len/2,y+h*.28,len,h*.18);
+  ctx.fillStyle=col;ctx.fillRect(x-len/2,y-h*.3,len,h*.62);
+  ctx.fillStyle="rgba(14,22,28,.85)";ctx.fillRect(x-len*.27,y-h*.62,len*.54,h*.36);
+  ctx.fillStyle=col;ctx.fillRect(x-len*.30,y-h*.66,len*.60,h*.06);
+  ctx.fillStyle="#111";ctx.fillRect(x-len*.36,y+h*.22,len*.16,h*.24);ctx.fillRect(x+len*.20,y+h*.22,len*.16,h*.24);
+  ctx.fillStyle=hl;ctx.fillRect(dir>0?x+len/2-3*k:x-len/2,y-h*.12,3*k,h*.16);
+  ctx.fillStyle="rgba(190,40,30,.9)";ctx.fillRect(dir>0?x-len/2:x+len/2-3*k,y-h*.12,3*k,h*.16)}
+function person(ctx,x,y,s,col){ctx.fillStyle="rgba(0,0,0,.3)";ctx.fillRect(x-3*s,y+11*s,7*s,2*s);ctx.fillStyle=col;ctx.fillRect(x-2.6*s,y-2*s,5.2*s,12*s);ctx.fillStyle="#c9a58a";ctx.beginPath();ctx.arc(x,y-5*s,3.1*s,0,6.3);ctx.fill()}
+var PCOL=["#6e8a9c","#9c6e6e","#c8c2a8","#4f6a58","#8a7aa0","#b59a5a"];
+function drawScene(ctx,W,H,cam,t,seed,stamp,rec){
+  var r=sr(cam.id*7919+13),hz=H*.44,k=W/960,kind=cam.kind,i,x,y;
+  var g=ctx.createLinearGradient(0,0,0,hz);g.addColorStop(0,"#25343d");g.addColorStop(1,"#5a6e7c");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  x=-10*k;
+  while(x<W){var bw=(40+r()*80)*k,bh=(50+r()*140)*k;ctx.fillStyle="hsl(205,"+Math.round(6+r()*8)+"%,"+Math.round(19+r()*10)+"%)";ctx.fillRect(x,hz-bh,bw,bh+2);
+    ctx.fillStyle="rgba(235,220,160,.22)";
+    for(var wy=hz-bh+8*k;wy<hz-8*k;wy+=16*k)for(var wx=x+6*k;wx<x+bw-8*k;wx+=14*k){if(r()<.35)ctx.fillRect(wx,wy,6*k,8*k)}
+    x+=bw+3*k}
+  var ry1=hz+(H-hz)*.24,ry2=hz+(H-hz)*.66,yc=(ry1+ry2)/2;
+  ctx.fillStyle="#323b41";ctx.fillRect(0,hz,W,H-hz);
+  if(kind=="bridge"){var wg=ctx.createLinearGradient(0,hz,0,ry1);wg.addColorStop(0,"#34576b");wg.addColorStop(1,"#1f3a4a");ctx.fillStyle=wg;ctx.fillRect(0,hz,W,ry1-hz)}
+  else{ctx.fillStyle="#4a535a";ctx.fillRect(0,hz,W,ry1-hz)}
+  ctx.fillStyle="#4a535a";ctx.fillRect(0,ry2,W,H-ry2);
+  if(kind=="junction"){ctx.fillStyle="#262c31";ctx.beginPath();ctx.moveTo(W*.43,hz);ctx.lineTo(W*.57,hz);ctx.lineTo(W*.74,H);ctx.lineTo(W*.26,H);ctx.closePath();ctx.fill()}
+  ctx.fillStyle="#262c31";ctx.fillRect(0,ry1,W,ry2-ry1);
+  ctx.fillStyle="rgba(205,198,120,.55)";for(x=-20*k;x<W;x+=60*k)ctx.fillRect(x,yc-1.5*k,28*k,3*k);
+  if(kind=="junction"){ctx.fillStyle="rgba(225,225,215,.5)";for(i=0;i<7;i++){ctx.fillRect(W*.355,ry1+4*k+i*((ry2-ry1-8*k)/7),22*k,(ry2-ry1)/16);ctx.fillRect(W*.625,ry1+4*k+i*((ry2-ry1-8*k)/7),22*k,(ry2-ry1)/16)}}
+  if(kind=="bridge"){ctx.fillStyle="#7e8c96";ctx.fillRect(0,ry1-6*k,W,3*k);for(x=0;x<W;x+=34*k)ctx.fillRect(x,ry1-6*k,3*k,16*k)}
+  if(kind=="market"){var AW=["#a3473b","#c29a3a","#3f7a8a","#6b8f4a","#8a5a8a"];for(x=10*k,i=0;x<W-60*k;x+=96*k,i++){ctx.fillStyle=AW[i%AW.length];ctx.fillRect(x,hz+8*k,84*k,22*k);ctx.fillStyle="rgba(0,0,0,.35)";ctx.fillRect(x,hz+30*k,84*k,(ry1-hz-34*k));ctx.fillStyle="rgba(215,190,120,.35)";ctx.fillRect(x+8*k,hz+40*k,68*k,10*k)}}
+  if(kind=="station"){ctx.fillStyle="#56626b";ctx.fillRect(W*.06,hz+6*k,W*.5,(ry1-hz)*.7);ctx.fillStyle="#2a3238";ctx.fillRect(W*.06,hz+6*k,W*.5,8*k);ctx.fillStyle="rgba(235,220,160,.4)";for(i=0;i<8;i++)ctx.fillRect(W*.08+i*W*.058,hz+22*k,W*.035,(ry1-hz)*.35);
+    ctx.fillStyle="#8c9aa4";ctx.fillRect(W*.62,ry2+4*k,150*k,36*k);ctx.fillStyle="rgba(14,22,28,.8)";for(i=0;i<5;i++)ctx.fillRect(W*.62+8*k+i*28*k,ry2+10*k,22*k,14*k)}
+  for(x=60*k;x<W;x+=210*k+r()*40*k){ctx.fillStyle="#1d252b";ctx.fillRect(x,hz-18*k,3*k,(ry1-hz)+22*k);var lg=ctx.createRadialGradient(x,hz-18*k,1,x,hz-18*k,46*k);lg.addColorStop(0,"rgba(255,235,170,.55)");lg.addColorStop(1,"rgba(255,235,170,0)");ctx.fillStyle=lg;ctx.fillRect(x-46*k,hz-64*k,92*k,92*k)}
+  var lanes=[[ry1+(ry2-ry1)*.27,1],[ry1+(ry2-ry1)*.76,-1]],nV=kind=="street"?5:7;
+  for(i=0;i<nV;i++){var ln=lanes[i%2],sp=(26+(i*13%38))*k,off=r()*(W+160*k),len=(54+((i*7)%3)*12)*k,hh=26*k;
+    if(cam.ev=="crash"&&i<2)continue;
+    var px=(((t*sp*ln[1]+off)%(W+160*k))+(W+160*k))%(W+160*k)-80*k;
+    vehicle(ctx,px,ln[0],len,hh,VCOL[i%VCOL.length],ln[1],k,"rgba(255,244,200,.95)")}
+  var pc=kind=="market"?22:(kind=="station"?9:4);
+  for(i=0;i<pc;i++){var bx=r()*W,by=(kind=="market"||i%2)?ry2+(H-ry2)*(.25+r()*.5):hz+(ry1-hz)*(.55+r()*.35);
+    if(cam.ev=="crowd"&&i%2==0){r();continue}
+    person(ctx,bx+Math.sin(t*.5+i*1.7)*16*k,by,k*(by>ry2?1.35:.9),PCOL[i%PCOL.length])}
+  if(cam.ev=="crowd"){var cr=sr(77+cam.id);for(i=0;i<30;i++){var a=cr()*6.28,rd=cr()*70*k;person(ctx,W*.56+Math.cos(a)*rd*1.5+Math.sin(t*2.2+i)*2.2*k,ry2+(H-ry2)*.5+Math.sin(a)*rd*.5+Math.cos(t*1.9+i*2)*1.6*k,k*1.4,PCOL[i%PCOL.length])}}
+  if(cam.ev=="crash"){var cx=W*.5,cy=yc;
+    ctx.save();ctx.translate(cx-26*k,cy-6*k);ctx.rotate(.38);vehicle(ctx,0,0,70*k,30*k,"#3f5f78",1,k,"rgba(255,244,200,.95)");ctx.restore();
+    ctx.save();ctx.translate(cx+34*k,cy+8*k);ctx.rotate(-.55);vehicle(ctx,0,0,64*k,28*k,"#8b3a34",-1,k,"rgba(255,244,200,.95)");ctx.restore();
+    if(Math.floor(t*2)%2==0){ctx.fillStyle="rgba(255,160,30,.95)";ctx.fillRect(cx-62*k,cy-20*k,5*k,5*k);ctx.fillRect(cx-2*k,cy+14*k,5*k,5*k);ctx.fillRect(cx+60*k,cy-4*k,5*k,5*k);ctx.fillRect(cx+4*k,cy-26*k,5*k,5*k)}
+    person(ctx,cx+86*k,cy+34*k,1.35*k,"#c8c2a8");person(ctx,cx+102*k,cy+38*k,1.35*k,"#6e8a9c");person(ctx,cx-92*k,cy+34*k,1.35*k,"#9c6e6e")}
+  ctx.fillStyle="rgba(18,40,38,.2)";ctx.fillRect(0,0,W,H);
+  ctx.fillStyle="rgba(0,0,0,.10)";for(y=0;y<H;y+=3*k)ctx.fillRect(0,y,W,Math.max(1,k));
+  var nr=sr(Math.floor(t*12)+seed*3+5);for(i=0;i<240;i++){ctx.fillStyle="rgba(255,255,255,"+(nr()*.16)+")";ctx.fillRect(nr()*W,nr()*H,Math.max(1,1.5*k),Math.max(1,1.5*k))}
+  var vg=ctx.createRadialGradient(W/2,H/2,H*.34,W/2,H/2,W*.62);vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(0,0,0,.5)");ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+  var fs=Math.max(9,Math.round(15*k));ctx.font="bold "+fs+"px monospace";ctx.textBaseline="top";ctx.fillStyle="#e6efe6";
+  ctx.textAlign="left";ctx.fillText("CAM "+(cam.id<10?"0"+cam.id:cam.id),Math.max(5,14*k),Math.max(4,12*k));
+  ctx.textAlign="right";ctx.fillText(stampStr(stamp),W-Math.max(5,14*k),Math.max(4,12*k));
+  if(rec&&Math.floor(t*1.4)%2==0){ctx.fillStyle="#d8392d";ctx.beginPath();ctx.arc(Math.max(9,22*k),H-Math.max(10,24*k),Math.max(3,6*k),0,6.3);ctx.fill();ctx.fillStyle="#e6efe6";ctx.textAlign="left";ctx.fillText("REC",Math.max(9,22*k)+Math.max(7,13*k),H-Math.max(10,24*k)-fs/2)}
+}
+
+var R2=rng(7711);
+var cases=[],evs=[];
+function addEv(c,t,txt,k){var e={t:t,txt:txt,k:k||""};c.events.push(e);evs.push({t:t,c:c,txt:txt,k:k||""})}
+(function seed(){
+  var n=124,list=[];
+  for(var i=0;i<n;i++){
+    var age;
+    if(i<9){var sm=(NOW-new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate()))/MIN;age=(10+R()*Math.max(5,sm-10))*MIN}
+    else age=Math.max(20*MIN,Math.pow(R(),1.35)*30*DAY);
+    var group=wpick(GROUPS,[28,19,24,12,8]);
+    var type=pick(CLASSES[group]);
+    var loc=wpick(LOCS,LW);
+    var pri=wpick(PRI,[12,30,35,23]);
+    var place=group=="الجرائم الإلكترونية"?"عبر الإنترنت":pick(PLACES);
+    list.push({created:new Date(NOW-age),group:group,type:type,loc:loc,pri:pri,place:place,src:wpick(["مركز الاتصال","مواطن"],[70,30])});
+    var q=list[list.length-1];if(group!="الجرائم الإلكترونية"&&R2()<.22){var cm=camForLoc(loc);q.src="كاميرا مراقبة";q.cam=cm.id;q.place=cm.place}
+  }
+  list.sort(function(a,b){return a.created-b.created});
+  list.forEach(function(x,i){
+    var c={id:3001+i,title:x.type+" — "+x.place,group:x.group,type:x.type,loc:x.loc,pri:x.pri,place:x.place,src:x.src,created:x.created,closed:null,level:-1,officer:"",notes:[],events:[],files:[],snaps:[],cam:x.cam||0};
+    c.center=centerFor(c.group,c.loc);
+    c.desc="بلاغ عن واقعة "+c.type+" في "+c.loc+" ("+c.place+"). تم تسجيل البيانات الأولية للقضية.";
+    var nf=Math.floor(R()*3);for(var f=0;f<nf;f++)c.files.push(R()<.7?"IMG_"+pad(f+1)+".jpg":"VID_"+pad(f+1)+".mp4");
+    if(x.cam){c.files=[];c.snaps=[{cam:x.cam,t:c.created,seed:3001+i,url:null}];c.desc="بلاغ عن واقعة "+c.type+" في "+c.loc+" ("+c.place+"). سُجّل من لقطة كاميرا المراقبة."}
+    var ageH=(NOW-c.created)/HR,r=R(),st;
+    if(ageH<3)st=r<.45?0:(r<.75?1:2);
+    else if(ageH<48)st=r<.15?1:(r<.5?2:(r<.58?3:4));
+    else st=r<.8?4:(r<.9?2:(r<.95?3:1));
+    var t=c.created.getTime();
+    addEv(c,new Date(t),x.cam?"تم تسجيل البلاغ من لقطة كاميرا ("+camName(x.cam)+")":"تم تسجيل البلاغ","n");
+    if(st>=1){t+=(4+R()*8)*MIN;c.officer=pick(OFFICERS);addEv(c,new Date(Math.min(t,NOW)),"تم تعيين "+c.center+" وضابط المتابعة "+c.officer,"a")}
+    if(st>=2){t+=(8+R()*20)*MIN;addEv(c,new Date(Math.min(t,NOW)),"بدء المعالجة","")}
+    if(st==3){t+=(10+R()*30)*MIN;c.level=Math.floor(R()*3);addEv(c,new Date(Math.min(t,NOW)),"تم التصعيد إلى "+LEVELS[c.level],"r")}
+    if(st==4){var dur=(1+R()*38)*HR;var ct=Math.min(c.created.getTime()+dur,NOW-5*MIN);if(c.events.length<3){c.officer=c.officer||pick(OFFICERS)}c.closed=new Date(ct);addEv(c,c.closed,"تم إغلاق القضية","g")}
+    if(st>=2&&R()<.5)c.notes.push({t:new Date(Math.min(t+5*MIN,NOW)),by:c.officer||"ضابط المتابعة",txt:"تمت مراجعة المرفقات واستيفاء البيانات الأولية."});
+    c.status=ST[st];
+    cases.push(c);
+  });
+})();
+function isOpen(c){return c.status!="مغلق"}
+function byId(id){for(var i=0;i<cases.length;i++)if(cases[i].id==id)return cases[i];return null}
+var $=function(s){return document.querySelector(s)};
+var $$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};
+function toast(m){var t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(function(){t.style.display="none"},2600)}
+function tagP(p){return'<span class="tag '+cls("p",p)+'">'+p+'</span>'}
+function tagS(s){return'<span class="tag '+cls("s",s)+'">'+s+'</span>'}
+/* map */
+var POLY={"كرري":"70,60 230,40 270,120 250,190 120,200 60,140","أم درمان":"60,140 120,200 250,190 260,260 130,300 50,240","أم بدة":"50,240 130,300 260,260 270,340 150,400 60,340","الخرطوم بحري":"230,40 400,30 470,90 440,150 330,170 270,120","الخرطوم":"270,120 330,170 440,150 450,230 340,290 260,260 250,190","شرق النيل":"470,90 580,110 600,210 450,230 440,150","جبل أولياء":"260,260 340,290 450,230 470,320 380,410 270,340"};
+var CEN={"كرري":[150,115],"أم درمان":[150,225],"أم بدة":[160,325],"الخرطوم بحري":[345,95],"الخرطوم":[350,215],"شرق النيل":[510,170],"جبل أولياء":[365,330]};
+var SCALE=["#f3e3b5","#eec770","#e3a14a","#d06a3b","#a93a2b"];
+function locCounts(){var o={};LOCS.forEach(function(l){o[l]=0});cases.forEach(function(c){if(isOpen(c))o[c.loc]++});return o}
+function mapSVG(small){
+  var cn=locCounts(),mx=Math.max.apply(null,LOCS.map(function(l){return cn[l]}))||1;
+  var s='<svg class="map" viewBox="0 0 640 440" role="img" aria-label="الخريطة الحرارية لولاية الخرطوم">';
+  LOCS.forEach(function(l){var r=cn[l]/mx,i=Math.min(4,Math.floor(r*4.999));
+    s+='<polygon data-loc="'+l+'" points="'+POLY[l]+'" fill="'+SCALE[i]+'"/>';
+    s+='<text x="'+CEN[l][0]+'" y="'+(CEN[l][1]-4)+'" text-anchor="middle" font-size="'+(small?22:17)+'" font-weight="700" fill="#1b2a36">'+cn[l]+'</text>';
+    if(!small)s+='<text x="'+CEN[l][0]+'" y="'+(CEN[l][1]+16)+'" text-anchor="middle" font-size="13" fill="#3a4a58">'+l+'</text>';
+  });
+  s+='<g pointer-events="none" fill="none" stroke="#5aa3cf" stroke-width="'+(small?4:6)+'" stroke-linecap="round" stroke-linejoin="round" opacity=".85"><polyline points="230,40 270,120"/><polyline points="270,120 330,170 440,150"/><polyline points="270,120 250,190 260,260 270,340 262,425"/></g>';
+  if(!small)s+='<g pointer-events="none" font-size="11" fill="#1f5f86" font-weight="700"><text x="196" y="86" text-anchor="end">النيل</text><text x="392" y="188" text-anchor="middle">النيل الأزرق</text><text x="244" y="404" text-anchor="end">النيل الأبيض</text></g>';
+  return s+'</svg>';
+}
+function legendHTML(){return'<span>أقل</span>'+SCALE.map(function(c){return'<i style="background:'+c+'"></i>'}).join("")+'<span>أعلى</span>'}
+function bindMap(root){
+  var tip=$("#tip"),cn=locCounts();
+  $$(root+" polygon").forEach(function(p){
+    var l=p.getAttribute("data-loc");
+    p.addEventListener("mousemove",function(e){tip.style.display="block";tip.style.left=(e.clientX+14)+"px";tip.style.top=(e.clientY+14)+"px";tip.textContent=l+" — "+cn[l]+" قضية مفتوحة"});
+    p.addEventListener("mouseleave",function(){tip.style.display="none"});
+    p.addEventListener("click",function(){tip.style.display="none";go("reg",{loc:l,status:"open"})});
+  });
+}
+/* filters */
+var F={loc:"",group:"",pri:"",status:"",center:"",range:"",src:"",q:""};
+function centers(){var s={};cases.forEach(function(c){s[c.center]=1});return Object.keys(s).sort()}
+function buildFilters(){
+  function sel(id,label,opts){return'<select id="'+id+'"><option value="">'+label+'</option>'+opts.map(function(o){return'<option value="'+(o.v!==undefined?o.v:o)+'">'+(o.t||o)+'</option>'}).join("")+'</select>'}
+  $("#filters").innerHTML=sel("fl-loc","كل المحليات",LOCS)+sel("fl-group","كل التصنيفات",GROUPS)+sel("fl-pri","كل الأولويات",PRI)
+   +sel("fl-status","كل الحالات",[{v:"open",t:"جميع المفتوحة"}].concat(ST))+sel("fl-center","كل المراكز",centers())
+   +sel("fl-range","كل التواريخ",[{v:"today",t:"اليوم"},{v:"7",t:"آخر 7 أيام"},{v:"30",t:"آخر 30 يومًا"}])
+   +sel("fl-src","كل المصادر",["مركز الاتصال","مواطن","كاميرا مراقبة"])+'<button class="btn sm" id="fl-reset">إعادة ضبط</button>';
+  ["loc","group","pri","status","center","range","src"].forEach(function(k){$("#fl-"+k).addEventListener("change",function(){F[k]=this.value;PAGE=1;renderReg()})});
+  $("#fl-reset").addEventListener("click",function(){F={loc:"",group:"",pri:"",status:"",center:"",range:"",src:"",q:""};$("#q").value="";syncFilters();PAGE=1;renderReg()});
+}
+function syncFilters(){["loc","group","pri","status","center","range","src"].forEach(function(k){$("#fl-"+k).value=F[k]})}
+function filtered(){
+  return cases.filter(function(c){
+    if(F.loc&&c.loc!=F.loc)return false;if(F.group&&c.group!=F.group)return false;if(F.pri&&c.pri!=F.pri)return false;if(F.src&&c.src!=F.src)return false;
+    if(F.status=="open"){if(!isOpen(c))return false}else if(F.status&&c.status!=F.status)return false;
+    if(F.center&&c.center!=F.center)return false;
+    if(F.range=="today"&&!sameDay(c.created,NOW))return false;
+    if(F.range=="7"&&NOW-c.created>7*DAY)return false;if(F.range=="30"&&NOW-c.created>30*DAY)return false;
+    if(F.q){var q=F.q.replace("#","").trim();if(!(String(c.id).indexOf(q)>=0||c.title.indexOf(q)>=0||c.loc.indexOf(q)>=0||c.type.indexOf(q)>=0||c.center.indexOf(q)>=0))return false}
+    return true}).sort(function(a,b){return b.created-a.created});
+}
+var PAGE=1,PS=10;
+function renderReg(){
+  var L=filtered(),pages=Math.max(1,Math.ceil(L.length/PS));if(PAGE>pages)PAGE=pages;
+  $("#regcount").textContent=L.length+" قضية";
+  var rows=L.slice((PAGE-1)*PS,PAGE*PS).map(function(c){return'<tr data-id="'+c.id+'"><td>#'+c.id+'</td><td><b>'+esc(c.title)+'</b>'+(c.cam?'<span class="cb">▣ '+camName(c.cam)+'</span>':'')+'</td><td>'+c.loc+'</td><td>'+c.type+'</td><td>'+tagP(c.pri)+'</td><td>'+esc(c.center)+'</td><td>'+tagS(c.status)+'</td><td>'+dstr(c.created)+" "+tstr(c.created)+'</td></tr>'}).join("");
+  $("#rows").innerHTML=rows||'<tr><td colspan="8" style="text-align:center;color:var(--mut);padding:30px">لا توجد قضايا مطابقة</td></tr>';
+  var p='<span>عرض '+(L.length?((PAGE-1)*PS+1):0)+'–'+Math.min(PAGE*PS,L.length)+' من '+L.length+'</span><span style="flex:1"></span>';
+  for(var i=1;i<=pages&&i<=12;i++)p+='<button data-p="'+i+'" class="'+(i==PAGE?"on":"")+'">'+i+'</button>';
+  $("#pager").innerHTML=p;
+}
+function csv(rows){return"﻿"+rows.map(function(r){return r.map(function(v){return'"'+String(v).replace(/"/g,'""')+'"'}).join(",")}).join("\r\n")}
+function download(name,text){var b=new Blob([text],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500)}
+/* dashboard */
+function openBy(f){return cases.filter(function(c){return isOpen(c)&&f(c)})}
+function renderDash(){
+  var today=cases.filter(function(c){return sameDay(c.created,NOW)}),yest=cases.filter(function(c){return sameDay(c.created,new Date(NOW-DAY))});
+  var open=openBy(function(){return true}),crit=openBy(function(c){return c.pri=="حرج"}),esc_=openBy(function(c){return c.status=="مُصعَّد"}),closedT=cases.filter(function(c){return c.closed&&sameDay(c.closed,NOW)});
+  var camT=cases.filter(function(c){return c.src=="كاميرا مراقبة"&&sameDay(c.created,NOW)}).length,camW=cases.filter(function(c){return c.src=="كاميرا مراقبة"&&NOW-c.created<=7*DAY}).length;
+  $("#kpis").innerHTML=[["بلاغات اليوم",today.length,"أمس: "+yest.length,"",{range:"today"}],["القضايا المفتوحة",open.length,"من إجمالي "+cases.length+" قضية","",{status:"open"}],["القضايا الحرجة",crit.length,"مفتوحة حاليًا","crit",{status:"open",pri:"حرج"}],["قضايا مُصعَّدة",esc_.length,"بانتظار قرار القيادة","",{status:"مُصعَّد"}],["أُغلقت اليوم",closedT.length,"","",{status:"مغلق",range:"today"}],["من الكاميرات اليوم",camT,"آخر 7 أيام: "+camW,"",{src:"كاميرا مراقبة",range:"today"}]]
+   .map(function(k,i){return'<div class="kpi '+k[3]+'" data-k="'+i+'"><small>'+k[0]+'</small><b>'+k[1]+'</b><i>'+(k[2]||"&nbsp;")+'</i></div>'}).join("");
+  $$("#kpis .kpi").forEach(function(el,i){var a=[{range:"today"},{status:"open"},{status:"open",pri:"حرج"},{status:"مُصعَّد"},{status:"مغلق"},{src:"كاميرا مراقبة",range:"today"}][i];el.addEventListener("click",function(){go("reg",a)})});
+  var lc={};crit.forEach(function(c){lc[c.loc]=(lc[c.loc]||0)+1});var top=Object.keys(lc).sort(function(a,b){return lc[b]-lc[a]});
+  var tc={};cases.forEach(function(c){if(NOW-c.created<=30*DAY)tc[c.group]=(tc[c.group]||0)+1});var tt=Object.keys(tc).sort(function(a,b){return tc[b]-tc[a]})[0];
+  var oc={},on=0;cases.forEach(function(c){if(isOpen(c)){oc[c.loc]=(oc[c.loc]||0)+1;on++}});var otop=Object.keys(oc).sort(function(a,b){return oc[b]-oc[a]});var share=on&&otop.length>=2?Math.round((oc[otop[0]]+oc[otop[1]])/on*100):0;
+  $("#insight").innerHTML=on&&otop.length>=2?'<b>الملاحظة اليوم:</b> محليتا '+otop[0]+' و'+otop[1]+' تستحوذان على '+share+'% من القضايا المفتوحة، وأكثر التصنيفات تكرارًا خلال آخر 30 يومًا: '+tt+'.':'<b>الملاحظة اليوم:</b> أكثر التصنيفات تكرارًا خلال آخر 30 يومًا: '+tt+'.';
+  var cl=crit.sort(function(a,b){return b.created-a.created}).slice(0,5);
+  $("#critlist").innerHTML=cl.map(function(c){return'<div class="it" data-id="'+c.id+'"><div style="flex:1"><b>'+esc(c.title)+'</b><small>'+esc(c.center)+" · "+ago(c.created)+'</small></div>'+tagS(c.status)+'</div>'}).join("")||'<div style="color:var(--mut)">لا توجد قضايا حرجة مفتوحة</div>';
+  $("#minimap").innerHTML=mapSVG(true)+'<div class="legend">'+legendHTML()+'</div>';bindMap("#minimap");
+  var cnt={};GROUPS.forEach(function(g){cnt[g]=0});cases.forEach(function(c){if(NOW-c.created<=30*DAY)cnt[c.group]++});var mx=Math.max.apply(null,GROUPS.map(function(g){return cnt[g]}));
+  $("#bytype").innerHTML=GROUPS.slice().sort(function(a,b){return cnt[b]-cnt[a]}).map(function(g){return'<div class="r"><span>'+g+'</span><div class="t"><i style="width:'+Math.round(cnt[g]/mx*100)+'%"></i></div><b class="n">'+cnt[g]+'</b></div>'}).join("");
+  $("#sub").textContent="";
+}
+function renderMap(){
+  $("#bigmap").innerHTML=mapSVG(false);bindMap("#bigmap");$("#legend").innerHTML=legendHTML();
+  var cn=locCounts(),mx=Math.max.apply(null,LOCS.map(function(l){return cn[l]}));
+  var r=LOCS.slice().sort(function(a,b){return cn[b]-cn[a]});
+  $("#rank").innerHTML=r.map(function(l,i){return'<div class="r" data-loc="'+l+'" style="cursor:pointer"><span>'+l+'</span><div class="t"><i style="width:'+Math.round(cn[l]/mx*100)+'%;background:'+SCALE[Math.min(4,Math.floor(cn[l]/mx*4.999))]+'"></i></div><b class="n">'+cn[l]+'</b></div>'}).join("");
+  var tot=LOCS.reduce(function(a,l){return a+cn[l]},0),sh=tot?Math.round((cn[r[0]]+cn[r[1]])/tot*100):0;
+  $("#mapnote").innerHTML='<b>ملاحظة تحليلية</b><br>محليتا '+r[0]+' و'+r[1]+' تمثلان '+sh+'% من القضايا المفتوحة.';
+}
+/* detail */
+function snapsHTML(c){if(!c.snaps.length)return"";return'<div class="snapg2" style="margin-bottom:10px">'+c.snaps.map(function(s,i){return'<figure data-sn="'+i+'">'+(s.url?'<img src="'+s.url+'" alt="">':'<canvas class="snapc" width="480" height="270" data-i="'+i+'"></canvas>')+'<figcaption>'+(s.cam?camName(s.cam)+" · ":"")+tstr(s.t)+" — "+dstr(s.t)+(s.name?" · <bdi>"+esc(s.name)+"</bdi>":"")+'</figcaption></figure>'}).join("")+'</div>'}
+function renderDet(id){
+  var c=byId(id);if(!c){go("reg");return}
+  var si=ST.indexOf(c.status);
+  var stp=ST.map(function(s,i){var k=i<si?"done":(i==si?"cur":"");if(s=="مُصعَّد"&&i==si)k+=" esc";return'<div class="st '+k+'"><i>'+(i+1)+'</i>'+s+'</div>'}).join("");
+  var ev=c.events.slice().sort(function(a,b){return a.t-b.t}).map(function(e){return'<div class="e"><time>'+tstr(e.t)+'</time><span></span><div><b>'+esc(e.txt)+'</b><small>'+dstr(e.t)+'</small></div></div>'}).join("");
+  var notes=c.notes.slice().sort(function(a,b){return b.t-a.t}).map(function(n){return'<div style="padding:8px 0;border-bottom:1px solid var(--line)"><b>'+esc(n.by)+'</b> <small style="color:var(--mut)">'+tstr(n.t)+'</small><div>'+esc(n.txt)+'</div></div>'}).join("")||'<div style="color:var(--mut)">لا توجد ملاحظات</div>';
+  var files=c.files.length?c.files.map(function(f){return'<div style="display:inline-block;margin:0 0 8px 8px;background:var(--navy);color:#cfdbe5;border-radius:10px;padding:26px 18px;text-align:center;min-width:110px">⎘<br><small dir="ltr">'+esc(f)+'</small></div>'}).join(""):'<div style="color:var(--mut)">لا توجد مرفقات</div>';
+  var nxt=ST.filter(function(s,i){return i>si&&s!="مُصعَّد"||(s=="قيد المعالجة"&&si==3)});
+  nxt=nxt.filter(function(s,i,a){return a.indexOf(s)==i});
+  var lv=LEVELS.map(function(l,i){return i>c.level?'<option value="'+i+'">'+l+'</option>':""}).join("");
+  var dis=c.status=="مغلق"?" disabled":"";
+  $("#v-det").innerHTML='<button class="btn sm" id="back" style="margin-bottom:12px">▸ الرجوع إلى السجل</button><div class="det"><div>'
+   +'<div class="card"><div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap"><h3 style="margin:0;font-size:18px">'+esc(c.title)+'</h3><small style="color:var(--mut)">قضية #'+c.id+'</small><span style="flex:1"></span>'+tagP(c.pri)+tagS(c.status)+'</div>'
+   +'<div class="kv"><div><small>المحلية</small><b>'+c.loc+'</b></div><div><small>التصنيف</small><b>'+c.group+' — '+c.type+'</b></div><div><small>مصدر البلاغ</small><b>'+c.src+(c.cam?' — '+camName(c.cam):'')+'</b></div><div><small>التسجيل</small><b>'+dstr(c.created)+" "+tstr(c.created)+'</b></div></div>'
+   +'<p style="margin:14px 0 0"><small style="color:var(--mut)">الموقع التفصيلي</small><br><b>'+esc(c.place)+'</b></p><p style="margin:8px 0 0">'+esc(c.desc)+'</p></div>'+(c.snaps.length?'<div class="card" style="margin-top:14px"><h3>'+(c.cam?'لقطات الكاميرا':'الصور المرفقة')+'</h3>'+snapsHTML(c)+'</div>':'')
+   +'<div class="card" style="margin-top:14px"><h3>حالة القضية</h3><div class="stepper">'+stp+'</div>'
+   +'<div class="acts"><select id="a-st"'+dis+'><option value="">تحديث الحالة إلى…</option>'+nxt.map(function(s){return'<option>'+s+'</option>'}).join("")+'</select><button class="btn navy sm" id="a-stb"'+dis+'>تحديث ✓</button>'
+   +'<span style="flex:1"></span><select id="a-lv"'+(dis||(lv?"":" disabled"))+'><option value="">تصعيد إلى…</option>'+lv+'</select><button class="btn sm" id="a-lvb"'+(dis||(lv?"":" disabled"))+'>تصعيد</button></div></div>'
+   +'<div class="card" style="margin-top:14px"><h3>المسار الزمني للقضية</h3><div class="tl">'+ev+'</div></div></div><div>'
+   +'<div class="card"><h3>المسؤولية</h3><div class="kv" style="grid-template-columns:1fr"><div><small>المركز المسؤول</small><b>'+esc(c.center)+'</b></div><div><small>ضابط المتابعة</small><b>'+(c.officer?esc(c.officer):"لم يُعيَّن بعد")+'</b></div><div><small>مستوى التوجيه</small><b>'+(c.level>=0?LEVELS[c.level]:"—")+'</b></div></div>'
+   +'<div class="acts"><select id="a-of"'+dis+'><option value="">إسناد ضابط متابعة…</option>'+OFFICERS.map(function(o){return'<option>'+o+'</option>'}).join("")+'</select><button class="btn sm" id="a-ofb"'+dis+'>إسناد</button></div></div>'
+   +'<div class="card" style="margin-top:14px"><h3>ملاحظات وإجراءات</h3>'+notes+'<div class="field" style="margin:12px 0 0"><textarea id="a-note" style="min-height:60px" placeholder="أضف ملاحظة…"></textarea></div><button class="btn sm" id="a-noteb"'+dis+'>إضافة ملاحظة</button></div>'
+   +((c.files.length||!c.snaps.length)?'<div class="card" style="margin-top:14px"><h3>المرفقات</h3>'+files+'</div>':'')+'</div></div>';
+  $$("#v-det canvas.snapc").forEach(function(cv){paintStatic(cv,c.snaps[+cv.getAttribute("data-i")])});
+  $$("#v-det figure[data-sn]").forEach(function(f){f.onclick=function(){var s=c.snaps[+f.getAttribute("data-sn")];showBig(s,(s.cam?camName(s.cam)+" — ":"")+dstr(s.t)+" "+tstr(s.t))}});
+  $("#back").onclick=function(){go("reg")};
+  $("#a-stb").onclick=function(){var v=$("#a-st").value;if(!v)return;setStatus(c,v)};
+  $("#a-lvb").onclick=function(){var v=$("#a-lv").value;if(v==="")return;c.level=+v;c.status="مُصعَّد";var t=new Date();addEv(c,t,"تم التصعيد إلى "+LEVELS[c.level],"r");toast("تم تصعيد القضية إلى "+LEVELS[c.level]);refresh();renderDet(c.id)};
+  $("#a-ofb").onclick=function(){var v=$("#a-of").value;if(!v)return;c.officer=v;if(c.status=="جديد")c.status="معيّن";addEv(c,new Date(),"تم إسناد القضية إلى "+v,"a");toast("تم الإسناد");refresh();renderDet(c.id)};
+  $("#a-noteb").onclick=function(){var v=$("#a-note").value.trim();if(!v)return;c.notes.push({t:new Date(),by:c.officer||"مسؤول غرفة العمليات",txt:v});addEv(c,new Date(),"إضافة ملاحظة","");toast("تمت إضافة الملاحظة");renderDet(c.id)};
+}
+function setStatus(c,s){c.status=s;var t=new Date();if(s=="مغلق"){c.closed=t;addEv(c,t,"تم إغلاق القضية","g")}else addEv(c,t,s=="معيّن"?"تم تعيين "+c.center:(s=="قيد المعالجة"?"بدء المعالجة":"تحديث الحالة إلى "+s),s=="معيّن"?"a":"");toast("تم تحديث الحالة إلى "+s);refresh();renderDet(c.id)}
+/* new */
+/* ---- camera view, capture, incident-from-snapshot ---- */
+var camState={sel:1,raf:0,last:0,tick:0,tray:[],asTitle:true};
+function paintStatic(cv,s,big){var cam=camById(s.cam)||CAMS[0];drawScene(cv.getContext("2d"),cv.width,cv.height,cam,s.seed*13.7,s.seed,s.t,false)}
+function showBig(s,cap){
+  var b=$("#lbbody");b.innerHTML="";
+  if(s.url){var im=document.createElement("img");im.src=s.url;im.style.cssText="width:100%;height:auto;display:block;border-radius:8px";b.appendChild(im)}
+  else{var cv=document.createElement("canvas");cv.width=960;cv.height=540;cv.style.cssText="width:100%;height:auto;display:block;border-radius:8px";paintStatic(cv,s);b.appendChild(cv)}
+  $("#lbcap").textContent=cap;$("#lbox").classList.add("on")}
+function camTitle(){var c=camById(camState.sel);$("#camtitle").textContent=camName(c.id);$("#camsub").textContent=c.place+" · "+c.loc;
+  $$("#camgrid .camtile").forEach(function(el){el.classList.toggle("on",+el.getAttribute("data-c")==c.id)})}
+function renderTray(){
+  var tr=camState.tray;$("#traycount").textContent=tr.length?tr.length+" / 4":"";
+  $("#tray").innerHTML=tr.length?tr.map(function(s,i){return'<div class="snap"><img src="'+s.url+'" alt=""><div class="sc"><span>'+camName(s.cam)+' · '+tstr(s.t)+'</span><button type="button" class="x" data-rm="'+i+'" aria-label="حذف">×</button></div></div>'}).join(""):'<div class="emptytray">اضغط «التقاط لقطة» لحفظ الصورة الحالية من الكاميرا.</div>';
+  $("#camMake").disabled=!tr.length}
+function renderCam(){
+  $("#camgrid").innerHTML=CAMS.map(function(c){return'<div class="camtile" data-c="'+c.id+'"><canvas width="320" height="180"></canvas><span>'+camName(c.id)+' — '+c.loc+'</span></div>'}).join("");
+  camTitle();renderTray()}
+function frame(ts){
+  camState.raf=requestAnimationFrame(frame);if(ts-camState.last<66)return;camState.last=ts;camState.tick++;
+  var t=Date.now()/1000,m=$("#camMain");drawScene(m.getContext("2d"),m.width,m.height,camById(camState.sel),t,camState.tick%50,new Date(),true);
+  if(camState.tick%6==1)$$("#camgrid .camtile").forEach(function(el){var c=camById(+el.getAttribute("data-c")),cv=el.firstChild;drawScene(cv.getContext("2d"),cv.width,cv.height,c,t,camState.tick%50,new Date(),false)})}
+function startCam(){if(!camState.raf)camState.raf=requestAnimationFrame(frame)}
+function stopCam(){if(camState.raf){cancelAnimationFrame(camState.raf);camState.raf=0}}
+function capture(){
+  if(camState.tray.length>=4){toast("الحد الأقصى 4 لقطات لكل بلاغ");return}
+  var o=document.createElement("canvas");o.width=960;o.height=540;var d=new Date();
+  drawScene(o.getContext("2d"),960,540,camById(camState.sel),Date.now()/1000,camState.tick%50,d,false);
+  camState.tray.push({cam:camState.sel,t:d,url:o.toDataURL("image/jpeg",.84)});
+  var f=$("#vflash");f.style.transition="none";f.style.opacity=".85";setTimeout(function(){f.style.transition="opacity .4s";f.style.opacity="0"},40);
+  renderTray();toast("تم التقاط اللقطة من "+camName(camState.sel))}
+function fillTypes(gSel,tSel){var g=$(gSel).value;$(tSel).innerHTML='<option value="">اختر نوع الواقعة</option>'+(CLASSES[g]||[]).map(function(x){return"<option>"+x+"</option>"}).join("")}
+function cmCenter(){var g=$("#cm-group").value,l=$("#cm-loc").value;$("#cm-center").textContent=(g&&l)?centerFor(g,l):"يُحدَّد تلقائيًا حسب الموقع"}
+function openCamModal(){
+  var tr=camState.tray;if(!tr.length){toast("التقط لقطة أولًا");return}
+  var c=camById(tr[0].cam);camState.asTitle=true;
+  $("#cm-snaps").innerHTML=tr.map(function(s){return'<figure><img src="'+s.url+'" alt=""><figcaption>'+camName(s.cam)+' · '+tstr(s.t)+'</figcaption></figure>'}).join("");
+  $("#cm-cam").textContent=camName(c.id)+" — "+c.place;$("#cm-time").textContent=dstr(tr[0].t)+" "+tstr(tr[0].t);
+  $("#cm-group").innerHTML='<option value="">اختر التصنيف</option>'+GROUPS.map(function(g){return"<option>"+g+"</option>"}).join("");
+  $("#cm-type").innerHTML='<option value="">اختر نوع الواقعة</option>';
+  $("#cm-loc").innerHTML='<option value="">اختر المحلية</option>'+LOCS.map(function(g){return"<option>"+g+"</option>"}).join("");
+  $("#cm-pri").innerHTML=PRI.map(function(g,i){return"<option"+(i==2?" selected":"")+">"+g+"</option>"}).join("");
+  $("#cm-loc").value=c.loc;$("#cm-where").value=c.place;$("#cm-title").value="";$("#cm-desc").value="";
+  $$("#cmf .field.err").forEach(function(f){f.classList.remove("err")});cmCenter();$("#cammodal").classList.add("on")}
+function initCam(){
+  $("#camSnap").onclick=capture;$("#camMake").onclick=openCamModal;
+  $("#camgrid").addEventListener("click",function(e){var t=e.target.closest(".camtile");if(!t)return;camState.sel=+t.getAttribute("data-c");camTitle()});
+  $("#tray").addEventListener("click",function(e){var b=e.target.closest("button[data-rm]");if(!b)return;camState.tray.splice(+b.getAttribute("data-rm"),1);renderTray()});
+  $("#cm-x").onclick=function(){$("#cammodal").classList.remove("on")};
+  $("#cm-group").addEventListener("change",function(){fillTypes("#cm-group","#cm-type");cmCenter()});
+  $("#cm-loc").addEventListener("change",cmCenter);
+  $("#cm-type").addEventListener("change",function(){if(camState.asTitle&&this.value)$("#cm-title").value=this.value+" — "+$("#cm-where").value});
+  $("#cm-title").addEventListener("input",function(){camState.asTitle=false});
+  $("#cmf").addEventListener("submit",function(e){
+    e.preventDefault();var ok=true;
+    [["title","cm-title"],["group","cm-group"],["type","cm-type"],["loc","cm-loc"],["where","cm-where"],["desc","cm-desc"]].forEach(function(p){var bad=!$("#"+p[1]).value.trim();$("#cf-"+p[0]).classList.toggle("err",bad);if(bad)ok=false});
+    if(!ok){toast("أكمل الحقول المطلوبة");return}
+    var tr=camState.tray.slice();
+    var c=makeCase({title:$("#cm-title").value.trim(),group:$("#cm-group").value,type:$("#cm-type").value,loc:$("#cm-loc").value,pri:$("#cm-pri").value,place:$("#cm-where").value.trim(),src:"كاميرا مراقبة",desc:$("#cm-desc").value.trim(),cam:tr[0].cam,snaps:tr.map(function(s){return{cam:s.cam,t:s.t,url:s.url}})});
+    camState.tray=[];renderTray();$("#cammodal").classList.remove("on");refresh();toast("تم تسجيل القضية #"+c.id+" من لقطات "+camName(c.cam));go("det",c.id)});
+  $("#lbox").addEventListener("click",function(){this.classList.remove("on")});
+  document.addEventListener("keydown",function(e){if(e.key=="Escape"){$("#lbox").classList.remove("on");$("#cammodal").classList.remove("on")}})}
+function makeCase(o){
+  var t=new Date(),mx=0;cases.forEach(function(c){if(c.id>mx)mx=c.id});
+  var c={id:mx+1,title:o.title,group:o.group,type:o.type,loc:o.loc,pri:o.pri,place:o.place,src:o.src,created:t,closed:null,level:-1,officer:"",notes:[],events:[],files:o.files||[],snaps:o.snaps||[],cam:o.cam||0,status:"جديد",desc:o.desc,center:centerFor(o.group,o.loc)};
+  cases.push(c);addEv(c,t,c.src=="كاميرا مراقبة"?"تم تسجيل البلاغ من لقطة كاميرا"+(c.cam?" ("+camName(c.cam)+")":""):"تم تسجيل البلاغ","n");return c}
+
+function initNew(){
+  $("#n-group").innerHTML='<option value="">اختر التصنيف</option>'+GROUPS.map(function(g){return"<option>"+g+"</option>"}).join("");
+  $("#n-type").innerHTML='<option value="">اختر نوع الواقعة</option>';
+  $("#n-loc").innerHTML='<option value="">اختر المحلية</option>'+LOCS.map(function(g){return"<option>"+g+"</option>"}).join("");
+  $("#n-pri").innerHTML=PRI.map(function(g,i){return"<option"+(i==2?" selected":"")+">"+g+"</option>"}).join("");
+  function sc(){var g=$("#n-group").value,l=$("#n-loc").value;$("#s-center").textContent=(g&&l)?centerFor(g,l):"يُحدَّد تلقائيًا حسب الموقع"}
+  $("#n-group").addEventListener("change",function(){var g=this.value;$("#n-type").innerHTML='<option value="">اختر نوع الواقعة</option>'+(CLASSES[g]||[]).map(function(t){return"<option>"+t+"</option>"}).join("");sc()});
+  $("#n-loc").addEventListener("change",sc);
+  $("#n-cam").innerHTML='<option value="">اختر الكاميرا</option>'+CAMS.map(function(c){return'<option value="'+c.id+'">'+camName(c.id)+' — '+c.place+'</option>'}).join("");
+  $("#n-src").addEventListener("change",function(){$("#f-cam").style.display=this.value=="كاميرا مراقبة"?"block":"none"});
+  $("#n-cam").addEventListener("change",function(){var c=camById(+this.value);if(!c)return;if(!$("#n-loc").value){$("#n-loc").value=c.loc;sc()}if(!$("#n-where").value.trim())$("#n-where").value=c.place});
+  var badNames=[];
+  function showFiles(){var h=window.__imgs.map(function(im,i){return'<span class="th"><img src="'+im.url+'" alt=""><bdi>'+esc(im.name)+'</bdi><button type="button" data-ri="'+i+'" aria-label="حذف">×</button></span>'}).join("")+window.__files.map(function(n,i){return'<span class="th">⎘ <bdi>'+esc(n)+'</bdi><button type="button" data-rf="'+i+'" aria-label="حذف">×</button></span>'}).join("");
+    $("#filesl").innerHTML=h+(badNames.length?'<br><span style="color:var(--red)">تجاوز الحد الأقصى 20MB: '+badNames.map(esc).join("، ")+'</span>':"")}
+  function addFiles(list){badNames=[];Array.prototype.forEach.call(list,function(f){if(f.size>20*1024*1024){badNames.push(f.name);return}
+    if(/^image\//.test(f.type)){var fr=new FileReader();fr.onload=function(){window.__imgs.push({name:f.name,url:fr.result});showFiles()};fr.readAsDataURL(f)}else{window.__files.push(f.name)}});showFiles()}
+  window.__files=[];window.__imgs=[];
+  $("#n-files").addEventListener("change",function(){addFiles(this.files);this.value=""});
+  $("#filesl").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;if(b.hasAttribute("data-ri"))window.__imgs.splice(+b.getAttribute("data-ri"),1);else window.__files.splice(+b.getAttribute("data-rf"),1);showFiles()});
+  document.addEventListener("paste",function(e){if(!$("#v-new").classList.contains("on"))return;var it=(e.clipboardData||{}).items||[];for(var i=0;i<it.length;i++)if(it[i].type.indexOf("image")==0){var f=it[i].getAsFile();if(f){var d=new Date();var nf=new File([f],"screenshot-"+pad(d.getHours())+pad(d.getMinutes())+pad(d.getSeconds())+".png",{type:f.type});addFiles([nf]);e.preventDefault()}}});
+  $("#ncancel").addEventListener("click",function(){resetNew();go("dash")});
+  $("#nf").addEventListener("submit",function(e){
+    e.preventDefault();var ok=true;
+    [["title","n-title"],["group","n-group"],["type","n-type"],["loc","n-loc"],["where","n-where"],["desc","n-desc"]].forEach(function(p){var bad=!$("#"+p[1]).value.trim();$("#f-"+p[0]).classList.toggle("err",bad);if(bad)ok=false});
+    if(!ok){toast("أكمل الحقول المطلوبة");return}
+    var g=$("#n-group").value,l=$("#n-loc").value,src=$("#n-src").value,camSel=src=="كاميرا مراقبة"?(+$("#n-cam").value||0):0,t=new Date();
+    var snaps=window.__imgs.map(function(im){return{cam:camSel,t:t,url:im.url,name:camSel?"":im.name}});
+    var c=makeCase({title:$("#n-title").value.trim(),group:g,type:$("#n-type").value,loc:l,pri:$("#n-pri").value,place:$("#n-where").value.trim(),src:src,desc:$("#n-desc").value.trim(),files:window.__files.slice(),snaps:snaps,cam:camSel});
+    resetNew();refresh();toast("تم تسجيل القضية #"+c.id);go("det",c.id);
+  });
+}
+function resetNew(){$("#nf").reset();$("#n-type").innerHTML='<option value="">اختر نوع الواقعة</option>';$("#filesl").innerHTML="";window.__files=[];window.__imgs=[];$("#f-cam").style.display="none";$$(".field.err").forEach(function(f){f.classList.remove("err")});$("#s-center").textContent="يُحدَّد تلقائيًا حسب الموقع";$("#n-pri").value="متوسط"}
+/* ops */
+function renderOps(){
+  var o=[["القضايا الحرجة المفتوحة",openBy(function(c){return c.pri=="حرج"}).length,"تتطلب متابعة فورية",{status:"open",pri:"حرج"},"#b8392e"],["الأولوية العالية",openBy(function(c){return c.pri=="عالي"}).length,"قيد المعالجة من المراكز",{status:"open",pri:"عالي"},"#c98a1b"],["القضايا المُصعَّدة",openBy(function(c){return c.status=="مُصعَّد"}).length,"رُفعت للقيادة",{status:"مُصعَّد"},"#1d6f7a"],["بلاغات اليوم",cases.filter(function(c){return sameDay(c.created,NOW)}).length,"منذ بداية اليوم",{range:"today"},"#2b6cb0"]];
+  $("#opk").innerHTML=o.map(function(k,i){return'<div class="opk"><b style="color:'+k[4]+'">'+k[1]+'</b><div><b style="font-size:14px">'+k[0]+'</b><small>'+k[2]+'</small></div><button class="btn sm" data-o="'+i+'">عرض القائمة</button></div>'}).join("");
+  $$("#opk button").forEach(function(b){b.onclick=function(){go("reg",o[+b.getAttribute("data-o")][3])}});
+  var w=cases.filter(function(c){return c.status=="جديد"}).sort(function(a,b){return PRI.indexOf(a.pri)-PRI.indexOf(b.pri)||a.created-b.created}).slice(0,6);
+  $("#waiting").innerHTML=w.map(function(c){return'<div class="it" style="display:flex;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);flex-wrap:wrap"><div style="flex:1;min-width:150px"><a href="#" data-id="'+c.id+'" class="lnk"><b>'+esc(c.title)+'</b></a><small style="display:block;color:var(--mut)">'+c.loc+" · "+ago(c.created)+'</small></div>'+tagP(c.pri)+'<select data-w="'+c.id+'" style="border:1px solid var(--line);border-radius:8px;padding:5px">'+OFFICERS.map(function(x){return"<option>"+x+"</option>"}).join("")+'</select><button class="btn sm" data-a="'+c.id+'">تعيين</button></div>'}).join("")||'<div style="color:var(--mut)">لا توجد قضايا بانتظار التعيين</div>';
+  $$("#waiting .lnk").forEach(function(a){a.onclick=function(e){e.preventDefault();go("det",+a.getAttribute("data-id"))}});
+  $$("#waiting button").forEach(function(b){b.onclick=function(){var c=byId(b.getAttribute("data-a")),of=$('#waiting select[data-w="'+c.id+'"]').value;c.officer=of;c.status="معيّن";addEv(c,new Date(),"تم تعيين "+c.center+" وضابط المتابعة "+of,"a");toast("تم تعيين القضية #"+c.id);refresh();renderOps()}});
+  var f=evs.slice().sort(function(a,b){return b.t-a.t}).slice(0,14);
+  $("#feed").innerHTML=f.map(function(e){return'<div class="e" data-id="'+e.c.id+'"><time>'+tstr(e.t)+'</time><span class="dot '+(e.k=="r"?"r":(e.k=="g"?"g":(e.k=="n"?"a":"")))+'"></span><div><b>'+esc(e.txt)+'</b><small style="display:block;color:var(--mut)">قضية #'+e.c.id+" — "+esc(e.c.title)+'</small></div></div>'}).join("");
+  $$("#feed .e").forEach(function(el){el.onclick=function(){go("det",+el.getAttribute("data-id"))}});
+}
+/* reports */
+var RT="d",RECO="";
+function bars(items,max){return items.map(function(i){return'<div class="r"><span>'+i[0]+'</span><div class="t"><i style="width:'+Math.round(i[1]/(max||1)*100)+'%"></i></div><b class="n">'+i[1]+'</b></div>'}).join("")}
+function cols(items){var mx=Math.max.apply(null,items.map(function(i){return i[1]}))||1;return'<div class="cols">'+items.map(function(i){return'<div class="c"><b>'+i[1]+'</b><i style="height:'+Math.max(4,Math.round(i[1]/mx*120))+'px"></i>'+i[0]+'</div>'}).join("")+'</div>'}
+function topLocs(list){var o={};list.forEach(function(c){o[c.loc]=(o[c.loc]||0)+1});return Object.keys(o).sort(function(a,b){return o[b]-o[a]}).map(function(k){return[k,o[k]]})}
+function repeats(list){var o={};list.forEach(function(c){var k=c.type+" — "+c.loc;o[k]=(o[k]||0)+1});return Object.keys(o).filter(function(k){return o[k]>=2}).sort(function(a,b){return o[b]-o[a]}).slice(0,5).map(function(k){return[k,o[k]]})}
+function repData(){
+  if(RT=="d"){var L=cases.filter(function(c){return sameDay(c.created,NOW)});return{title:"التقرير اليومي — "+dstr(NOW),list:L}}
+  if(RT=="w")return{title:"التقرير الأسبوعي — آخر 7 أيام",list:cases.filter(function(c){return NOW-c.created<=7*DAY})};
+  return{title:"التقرير الشهري — آخر 30 يومًا",list:cases.filter(function(c){return NOW-c.created<=30*DAY})};
+}
+function renderRep(){
+  var d=repData(),L=d.list,h="",openN=cases.filter(isOpen).length;
+  var kp=function(a,b){return'<div class="kpi" style="cursor:default"><small>'+a+'</small><b>'+b+'</b></div>'};
+  h+='<div class="kpis" style="grid-template-columns:repeat(4,1fr)">'+kp("إجمالي البلاغات",L.length)+kp("القضايا الحرجة",L.filter(function(c){return c.pri=="حرج"}).length)+kp("مفتوحة من هذه الفترة",L.filter(isOpen).length)+kp("مغلقة من هذه الفترة",L.filter(function(c){return!isOpen(c)}).length)+'</div>';
+  h+='<div class="rep">';
+  if(RT=="d"){
+    var bk=[0,0,0,0,0,0];L.forEach(function(c){bk[Math.floor(c.created.getHours()/4)]++});
+    h+='<div class="card"><h3>البلاغات حسب الوقت <small>كل 4 ساعات</small></h3>'+cols(bk.map(function(v,i){return[pad(i*4)+":00",v]}))+'</div>';
+    var tl=topLocs(L),m=tl.length?tl[0][1]:1;
+    h+='<div class="card"><h3>المحليات الأكثر تأثرًا اليوم</h3><div class="bars">'+(bars(tl.slice(0,5),m)||'<span style="color:var(--mut)">لا توجد بلاغات</span>')+'</div></div>';
+  }else if(RT=="w"){
+    var days=[];for(var i=6;i>=0;i--){var dd=new Date(NOW-i*DAY);days.push([["أحد","اثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"][dd.getDay()],cases.filter(function(c){return sameDay(c.created,dd)}).length])}
+    var prev=cases.filter(function(c){var a=NOW-c.created;return a>7*DAY&&a<=14*DAY}).length,diff=L.length-prev;
+    h+='<div class="card"><h3>الاتجاه العام <small>'+(prev?(diff>=0?"▲ ":"▼ ")+Math.abs(diff)+" مقارنة بالأسبوع السابق":"")+'</small></h3>'+cols(days)+'</div>';
+    var tl=topLocs(L);
+    h+='<div class="card"><h3>مقارنة المحليات</h3><div class="bars">'+bars(tl,tl.length?tl[0][1]:1)+'</div></div>';
+    var rp=repeats(L);
+    h+='<div class="card" style="grid-column:1/-1"><h3>القضايا المتكررة <small>نفس النوع في نفس المحلية خلال الأسبوع</small></h3><div class="bars">'+(bars(rp,rp.length?rp[0][1]:1)||'<span style="color:var(--mut)">لا توجد قضايا متكررة</span>')+'</div></div>';
+  }else{
+    var wk=[0,0,0,0];L.forEach(function(c){var i=3-Math.max(0,Math.min(3,Math.floor((NOW-c.created)/(7.5*DAY))));wk[i]++});
+    h+='<div class="card"><h3>الاتجاهات العامة <small>حسب الأسبوع</small></h3>'+cols(wk.map(function(v,i){return["أسبوع "+(i+1),v]}))+'</div>';
+    var g={};L.forEach(function(c){g[c.group]=(g[c.group]||0)+1});var gl=Object.keys(g).sort(function(a,b){return g[b]-g[a]}).map(function(k){return[k,g[k]]});
+    h+='<div class="card"><h3>التصنيفات الأكثر تكرارًا</h3><div class="bars">'+bars(gl,gl.length?gl[0][1]:1)+'</div></div>';
+    var rp=repeats(L);
+    h+='<div class="card"><h3>نقاط الجريمة المتكررة <small>نوع الواقعة والمحلية</small></h3><div class="bars">'+bars(rp,rp.length?rp[0][1]:1)+'</div></div>';
+    h+='<div class="card"><h3>توصيات للتحسين</h3><textarea id="reco" style="width:100%;min-height:110px;border:1px solid var(--line);border-radius:9px;padding:9px" placeholder="اكتب توصيات الفترة…">'+esc(RECO)+'</textarea><button class="btn sm" id="recosave" style="margin-top:8px">حفظ التوصيات</button></div>';
+  }
+  h+='</div><div style="margin-top:14px"><button class="btn navy" id="repdl">⭳ تنزيل التقرير</button></div>';
+  $("#repbody").innerHTML=h;
+  var rs=$("#recosave");if(rs)rs.onclick=function(){RECO=$("#reco").value;toast("تم حفظ التوصيات")};
+  $("#repdl").onclick=function(){var rows=[[d.title],["رقم","العنوان","المحلية","التصنيف","النوع","الأولوية","الحالة","التسجيل"]].concat(L.map(function(c){return["#"+c.id,c.title,c.loc,c.group,c.type,c.pri,c.status,dstr(c.created)+" "+tstr(c.created)]}));if(RT=="m"&&RECO)rows.push([],["توصيات للتحسين",RECO]);download("report-"+RT+"-"+NOW.getFullYear()+pad(NOW.getMonth()+1)+pad(NOW.getDate())+".csv",csv(rows))};
+}
+/* nav */
+var TITLES={dash:"لوحة القيادة",map:"الخريطة الحرارية",reg:"سجل البلاغات",det:"تفاصيل القضية",cam:"الكاميرات",new:"تسجيل بلاغ جديد",ops:"غرفة العمليات والمتابعة",rep:"التقارير التنفيذية"};
+var SUBS={map:"كثافة القضايا حسب محليات ولاية الخرطوم",reg:"عرض موحّد لجميع القضايا",cam:"مشاهدة الكاميرات والتقاط اللقطات لتسجيل البلاغات",new:"تسجيل سريع للقضايا الجديدة",ops:"متابعة لحظية للقضايا الحرجة والأحداث",rep:"تقارير جاهزة للقيادات على ثلاثة مستويات زمنية"};
+function go(v,arg){
+  if(v=="reg"&&arg&&typeof arg=="object"){F={loc:"",group:"",pri:"",status:"",center:"",range:"",src:"",q:""};for(var k in arg)F[k]=arg[k];$("#q").value="";PAGE=1;syncFilters()}
+  $$(".view").forEach(function(s){s.classList.remove("on")});$("#v-"+v).classList.add("on");
+  $$("#nav a").forEach(function(a){a.classList.toggle("on",a.getAttribute("data-v")==(v=="det"?"reg":v))});
+  $("#ttl").firstChild.nodeValue=TITLES[v];$("#sub").textContent=SUBS[v]||"";window.scrollTo(0,0);
+  if(v=="dash")renderDash();else if(v=="map")renderMap();else if(v=="reg")renderReg();else if(v=="det")renderDet(arg);else if(v=="ops")renderOps();else if(v=="rep")renderRep();else if(v=="cam")renderCam();
+  if(v=="cam")startCam();else stopCam();
+}
+function refresh(){$("#nb").textContent=cases.filter(isOpen).length}
+function init(){
+  $("#today").textContent=NOW.toLocaleDateString("ar-EG-u-nu-latn",{weekday:"long",day:"numeric",month:"long"});
+  buildFilters();initNew();initCam();$("#cm-x2").onclick=function(){$("#cammodal").classList.remove("on")};refresh();
+  $$("#nav a").forEach(function(a){a.onclick=function(){go(a.getAttribute("data-v"),a.getAttribute("data-v")=="reg"?{}:undefined)}});
+  $$("button[data-v]").forEach(function(b){b.onclick=function(){go(b.getAttribute("data-v"))}});
+  $("#allcrit").onclick=function(){go("reg",{status:"open",pri:"حرج"})};
+  $("#critlist").addEventListener("click",function(e){var it=e.target.closest(".it");if(it)go("det",+it.getAttribute("data-id"))});
+  $("#rows").addEventListener("click",function(e){var tr=e.target.closest("tr[data-id]");if(tr)go("det",+tr.getAttribute("data-id"))});
+  $("#pager").addEventListener("click",function(e){var b=e.target.closest("button[data-p]");if(b){PAGE=+b.getAttribute("data-p");renderReg()}});
+  $("#rank").addEventListener("click",function(e){var r=e.target.closest(".r[data-loc]");if(r)go("reg",{loc:r.getAttribute("data-loc"),status:"open"})});
+  $("#exp").onclick=function(){var L=filtered();download("cases.csv",csv([["رقم","العنوان","المحلية","التصنيف","النوع","الأولوية","المركز","الحالة","التسجيل"]].concat(L.map(function(c){return["#"+c.id,c.title,c.loc,c.group,c.type,c.pri,c.center,c.status,dstr(c.created)+" "+tstr(c.created)]}))));toast("تم تصدير "+L.length+" قضية")};
+  $("#q").addEventListener("keydown",function(e){if(e.key=="Enter"){F={loc:"",group:"",pri:"",status:"",center:"",range:"",src:"",q:this.value};PAGE=1;syncFilters();go("reg")}});
+  $("#rtabs").addEventListener("click",function(e){var b=e.target.closest("button[data-r]");if(!b)return;RT=b.getAttribute("data-r");$$("#rtabs button").forEach(function(x){x.classList.toggle("on",x===b)});renderRep()});
+  go("dash");
+}
+document.addEventListener("DOMContentLoaded",init);
+})();
+
+</script></body></html>
